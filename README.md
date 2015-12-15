@@ -1,6 +1,10 @@
 # Ambari on Docker
 
-***WIP*** SequenceIQ Ambari docker modified :
+***WIP*** 
+
+Modified SequenceIQ Ambari docker.
+
+## Changelog
 
 - more functions in ambari-functions,
 - latest ambari distribution
