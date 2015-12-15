@@ -1,6 +1,6 @@
 # Creates an Ambari Server base on vanilla centos
-FROM centos:6.6
-MAINTAINER SequenceIQ
+FROM appcontainers/centos:6
+MAINTAINER SequenceIQ+freygrob
 
 ADD ambari.repo /etc/yum.repos.d/
 
@@ -97,20 +97,20 @@ RUN cd /var/lib/ambari-server/resources/stacks/HDP/2.2/services && git clone htt
 
 # fix Ambari views with WASB
 # remove after Ambari 2.1.3
-ADD ambari-views-utils-fixed-wasb.jar /tmp/wasb/WEB-INF/lib/
-ADD azure-storage-2.2.0.jar /tmp/wasb/WEB-INF/lib/
-ADD hadoop-azure-2.7.1.jar /tmp/wasb/WEB-INF/lib/
-RUN cd /tmp/wasb/WEB-INF/lib/ && mv ambari-views-utils-fixed-wasb.jar $(jar tf /var/lib/ambari-server/resources/views/files-*.jar | grep ambari-view | cut -d "/" -f 3)
-RUN cd /tmp/wasb && jar -uf /var/lib/ambari-server/resources/views/files*.jar WEB-INF/lib/*.jar
-RUN cd /tmp/wasb && jar -uf /var/lib/ambari-server/resources/views/hive*.jar WEB-INF/lib/*.jar
-RUN cd /tmp/wasb && jar -uf /var/lib/ambari-server/resources/views/pig*.jar WEB-INF/lib/*.jar
-RUN cd /tmp/wasb && jar -uf /var/lib/ambari-server/resources/views/slider*.jar WEB-INF/lib/*.jar
+# ADD ambari-views-utils-fixed-wasb.jar /tmp/wasb/WEB-INF/lib/
+# ADD azure-storage-2.2.0.jar /tmp/wasb/WEB-INF/lib/
+# ADD hadoop-azure-2.7.1.jar /tmp/wasb/WEB-INF/lib/
+# RUN cd /tmp/wasb/WEB-INF/lib/ && mv ambari-views-utils-fixed-wasb.jar $(jar tf /var/lib/ambari-server/resources/views/files-*.jar | grep ambari-view | cut -d "/" -f 3)
+# RUN cd /tmp/wasb && jar -uf /var/lib/ambari-server/resources/views/files*.jar WEB-INF/lib/*.jar
+# RUN cd /tmp/wasb && jar -uf /var/lib/ambari-server/resources/views/hive*.jar WEB-INF/lib/*.jar
+# RUN cd /tmp/wasb && jar -uf /var/lib/ambari-server/resources/views/pig*.jar WEB-INF/lib/*.jar
+# RUN cd /tmp/wasb && jar -uf /var/lib/ambari-server/resources/views/slider*.jar WEB-INF/lib/*.jar
 
 # Add jars from packer image
-ADD dash-azure-storage-2.2.0.jar /usr/lib/hadoop/lib/
-ADD gcs-connector-latest-hadoop2.jar /usr/lib/hadoop/lib/
+# ADD dash-azure-storage-2.2.0.jar /usr/lib/hadoop/lib/
+# ADD gcs-connector-latest-hadoop2.jar /usr/lib/hadoop/lib/
 
-ENV PS1 "[\u@docker-ambari \W]# "
+ENV PS1 "[\u@\h:\w]# "
 
 EXPOSE 8080
 CMD ["/start-server"]
