@@ -1,8 +1,9 @@
 # Ambari on Docker
 
-***WIP*** 
-
 Modified SequenceIQ Ambari docker.
+
+Docker Hub: https://hub.docker.com/r/horton/docker-ambari/
+Docker Image: horton/docker-ambari
 
 ## Changelog
 
